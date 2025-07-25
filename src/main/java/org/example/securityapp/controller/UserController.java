@@ -1,6 +1,6 @@
 package org.example.securityapp.controller;
 
-import org.example.securityapp.domain.user.PrincipalDetails;
+import org.example.securityapp.domain.user.User;
 import org.example.securityapp.domain.user.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,9 +15,14 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/user")
+    public @ResponseBody String user() {
+        return "<h1>user page</h1>";
+    }
+
     @GetMapping("/main")
-    public String main(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        System.out.println(principalDetails.getUser().getUsername());
+    public String main(@AuthenticationPrincipal User user) {
+        System.out.println(user.getUsername());
         return "main";
     }
 
