@@ -1,12 +1,14 @@
 package org.example.securityapp.controller;
 
+import org.example.securityapp._core.Resp;
 import org.example.securityapp.domain.user.User;
 import org.example.securityapp.domain.user.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RequestMapping("/user")
+@RestController
 public class UserController {
 
     private UserService userService;
@@ -15,32 +17,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
-    public @ResponseBody String user() {
-        return "<h1>user page</h1>";
-    }
-
-    @GetMapping("/main")
-    public String main(@AuthenticationPrincipal User user) {
-        System.out.println(user.getUsername());
-        return "main";
-    }
-
-    @GetMapping("/join-form")
-    public String joinForm() {
-        return "user/join-form";
-    }
-
-    @GetMapping("/login-form")
-    public String loginForm() {
-        return "user/login-form";
-    }
-
-    @PostMapping("/join")
-    public String join(String username, String password, String email) {
-
-        userService.회원가입(username, password, email);
-        return "redirect:/main";
+    @GetMapping
+    public Resp<?> user() {
+        return new Resp<>();
     }
 }
 
